@@ -7,7 +7,12 @@
   <title>Express HTML</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="../Assets/favicon.ico">
-  <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Tell iOS it's a PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Make sure theme-color is defined -->
+    <meta name="theme-color" content="#536878">
+  <link rel="manifest" href="manifest.json">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
@@ -16,11 +21,6 @@
   <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
   <!-- Tell the browser it's a PWA -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <!-- Tell iOS it's a PWA -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Make sure theme-color is defined -->
-    <meta name="theme-color" content="#536878">
     <style type="text/css">
       .asset-box{
         width: 100%;
@@ -109,9 +109,9 @@
         <a class="navbar-brand" href="#">Investments Monitor</a>
       </div> -->
       <ul class="nav navbar-nav">
+        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'wallet')"><img class="menu-svg" src="Assets/wallet.svg" ></a></li>
         <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/buy.svg" ></a></li>
         <li class="col-xs-4"><a href="#" onclick="openSection(event, 'history')"><img class="menu-svg" src="Assets/history.svg" ></a></li>
-        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'wallet')"><img class="menu-svg" src="Assets/wallet.svg" ></a></li>
       </ul>
       <div>
         total da carteira: 15%
@@ -176,7 +176,8 @@
 
   <section id="history" class="history-section tabcontent">
     <div class="container title-margin">
-      histórico
+      <h5>histórico</h5>
+      <p> sem historico </p>
     </div>
   </section>
 
@@ -195,6 +196,21 @@
     document.getElementById(sectionName).style.display = "block";
     evt.currentTarget.className += " active";
 } 
+  </script>
+
+  <script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+
   </script>
   
 </body>
