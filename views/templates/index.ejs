@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
+  <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
   <!-- Tell the browser it's a PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <!-- Tell iOS it's a PWA -->
@@ -77,6 +79,12 @@
       .navbar{
         opacity: 1;
       }
+
+      .menu-svg{
+        width: 100%;
+        height: auto;
+      }
+
     </style>
 </head>
 <body>
@@ -87,14 +95,13 @@
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-      <div class="navbar-header">
+      <!-- <div class="navbar-header">
         <a class="navbar-brand" href="#">Investments Monitor</a>
-      </div>
+      </div> -->
       <ul class="nav navbar-nav">
-        <li class="col-xs-3"><a href="#">H</a></li>
-        <li class="col-xs-3"><a href="#">P</a></li>
-        <li class="col-xs-3"><a href="#">P</a></li>
-        <li class="col-xs-3"><a href="#">P</a></li>
+        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/buy.svg" ></a></li>
+        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/history.svg" ></a></li>
+        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/wallet.svg" ></a></li>
       </ul>
     </div>
   </nav>
