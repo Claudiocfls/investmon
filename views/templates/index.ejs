@@ -2,11 +2,12 @@
 
 <% var rootPath = '../'; %>
 
-<html>
+<html lang="pt-br">
 <head>
   <title>Express HTML</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="../Assets/favicon.ico">
+  <meta name="Description" content="web app for investments monitoring">
     <meta name="mobile-web-app-capable" content="yes">
     <!-- Tell iOS it's a PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,7 +44,7 @@
       }
 
       h1.investment-return{
-        color: rgb(55, 188, 155);
+        color: rgb(255, 0, 0);
       }
 
       /*-----*/
@@ -100,7 +101,7 @@
 
   <div id="mybutton">
   <!-- <button type="button" class="btn btn-primary feedback">Add</button> -->
-  <img class="button-plus feedback" src="Assets/plus.svg">
+  <img class="button-plus feedback" src="Assets/plus.svg" alt="add button">
   </div>
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -109,9 +110,9 @@
         <a class="navbar-brand" href="#">Investments Monitor</a>
       </div> -->
       <ul class="nav navbar-nav">
-        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'wallet')"><img class="menu-svg" src="Assets/wallet.svg" ></a></li>
-        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/buy.svg" ></a></li>
-        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'history')"><img class="menu-svg" src="Assets/history.svg" ></a></li>
+        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'wallet')"><img class="menu-svg" src="Assets/wallet.svg" alt="wallet icon" ></a></li>
+        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/buy.svg" alt="add icon"></a></li>
+        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'history')"><img class="menu-svg" src="Assets/history.svg" alt="history icon"></a></li>
       </ul>
       <div>
         total da carteira: 15%
