@@ -8,6 +8,15 @@ const { Pool } = require('pg');
 
 var axios = require('axios');
 
+/**
+ * Init Alpha Vantage with your API key.
+ *
+ * @param {String} key
+ *   Your Alpha Vantage API key.
+ */
+
+const alpha = require('alphavantage')({ key: String( process.env.API_KEY_ALPHAADVANTAGE ) } ) ;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,13 +34,14 @@ app.set('view engine', 'ejs');
 var matematica = require('./math_custom.js');
 app.get('/', function(req, res) {
   var btcprice;
-  axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
-      .then(({data: {BTC, ETH, LTC}}) => { 
-          btcprice =  BTC.USD;
-          res.render('templates/index', {name: btcprice, root_dir: path.join(__dirname)});
-
-      })
-      .catch(console.error);
+  // axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
+  // .then(({data: {BTC, ETH, LTC}}) => { 
+  alpha.data.daily(`itsa4.sa`).then(data => {
+    var lastKey = Object.keys(data['Time Series (Daily)'])[0];
+    console.log(data['Time Series (Daily)'][lastKey]['4. close']);
+    res.render('templates/index', {name: "Claudio"});
+  });
+  
 });
 
 const pool = new Pool({

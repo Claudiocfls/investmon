@@ -12,6 +12,7 @@
     "url": "github.com/claudiocfls/investmon"
   },
   "dependencies": {
+    "alphavantage": "^1.1.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",

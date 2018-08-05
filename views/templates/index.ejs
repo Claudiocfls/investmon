@@ -12,36 +12,139 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
   <!-- Tell the browser it's a PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <!-- Tell iOS it's a PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Make sure theme-color is defined -->
     <meta name="theme-color" content="#536878">
+    <style type="text/css">
+      .asset-box{
+        width: 100%;
+        height: auto;
+        padding: 5px 0;
+        border-top: 1px solid #f9f9f9;
+        border-bottom: 1px solid #f9f9f9;
+        text-align: center;
+        margin: 5px 0;
+        background-color: #f1f1f1;
+      }
+
+      h1 {
+        font-size: 18px;
+        color: #000;
+      }
+
+      h1.investment-price{
+
+      }
+
+      h1.investment-return{
+        color: rgb(55, 188, 155);
+      }
+
+      /*-----*/
+      /*details*/
+      .details-head{
+        text-align: center;
+        border-bottom: 1px solid #000;
+      }
+
+      .details-content{
+        text-align: center;
+      }
+
+      h2{
+        font-size: 12px;
+      }
+
+      .feedback {
+        background-color : #31B0D5;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        border-color: #46b8da;
+      }
+
+      #mybutton {
+        position: fixed;
+        bottom: 4px;
+        right: 10px;
+        z-index: 10;
+      }
+    </style>
 </head>
 <body>
-  <div style="margin:100px;">
-    <nav class="navbar navbar-inverse navbar-static-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">Express HTML</a>
-    <ul class="nav navbar-nav">
-      <li class="active">
-        <a href="/">Home</a>
-      </li>
-      <li>
-        <a href="/about">About</a>
-      </li>
-      <li>
-        <a href="/sitemap">Sitemap</a>
-      </li>
-    </ul>
+
+  <div id="mybutton">
+  <button type="button" class="btn btn-primary feedback">Add</button>
   </div>
-</nav>
-    <div class="jumbotron"  style="padding:40px;">
-      <h1><%= name %></h1>
-      <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    
+  <% for(var i=0; i<20 ; i++) { %>
+        
+    <div class="container asset-box" data-toggle="collapse" href="#details">
+      <div class="col-xs-4">
+        <h1 class="asset__sticker">ITSA4</h1>
+      </div>
+      <div class="col-xs-4">
+        <h1 class="asset__sticker investment-price">R$ 123,00</h1>
+      </div>
+      <div class="col-xs-4">
+        <h1 class="asset__sticker investment-return">15%</h1>
+      </div>
     </div>
-  </div>
+
+    <div id="details" class="container collapse details-box">
+      <div class="container details-head">
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">Data da compra</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker investment-price">Qtd.</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker investment-return">Preço de compra (R$)</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">Taxas (R$)</h1>
+        </div>
+      </div>
+
+      <div class="container details-content">
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">23/12/18</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">100</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker investment-return">72,00</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">18,90</h1>
+        </div>
+      </div>
+
+      <div class="container details-content">
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">23/12/18</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">100</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker investment-return">72,00</h1>
+        </div>
+        <div class="col-xs-3">
+          <h2 class="asset__sticker">18,90</h1>
+        </div>
+      </div>
+
+      
+    </div>
+
+  <% } %>
+  
 </body>
 </html>
