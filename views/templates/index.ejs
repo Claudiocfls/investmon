@@ -61,13 +61,13 @@
         font-size: 12px;
       }
 
-      .feedback {
+      /*.feedback {
         background-color : #31B0D5;
         color: white;
         padding: 10px 20px;
         border-radius: 4px;
         border-color: #46b8da;
-      }
+      }*/
 
       #mybutton {
         position: fixed;
@@ -85,12 +85,22 @@
         height: auto;
       }
 
+      .button-plus{
+        width: 50px;
+        height: 50px;
+      }
+
+      .title-margin{
+        margin-top: 75px !important;
+      }
+
     </style>
 </head>
 <body>
 
   <div id="mybutton">
-  <button type="button" class="btn btn-primary feedback">Add</button>
+  <!-- <button type="button" class="btn btn-primary feedback">Add</button> -->
+  <img class="button-plus feedback" src="Assets/plus.svg">
   </div>
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -100,76 +110,92 @@
       </div> -->
       <ul class="nav navbar-nav">
         <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/buy.svg" ></a></li>
-        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/history.svg" ></a></li>
-        <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/wallet.svg" ></a></li>
+        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'history')"><img class="menu-svg" src="Assets/history.svg" ></a></li>
+        <li class="col-xs-4"><a href="#" onclick="openSection(event, 'wallet')"><img class="menu-svg" src="Assets/wallet.svg" ></a></li>
       </ul>
+      <div>
+        total da carteira: 15%
+      </div>
     </div>
   </nav>
-    
-  <% for(var i=0; i<20 ; i++) { %>
-        
-    <div class="container asset-box" data-toggle="collapse" href="#details">
-      <div class="col-xs-4">
-        <h1 class="asset__sticker">ITSA4</h1>
-      </div>
-      <div class="col-xs-4">
-        <h1 class="asset__sticker investment-price">R$ 123,00</h1>
-      </div>
-      <div class="col-xs-4">
-        <h1 class="asset__sticker investment-return">15%</h1>
-      </div>
+
+  <section id="wallet" class="wallet-section tabcontent">
+    <div class="container title-margin">
+      carteira
     </div>
-
-    <div id="details" class="container collapse details-box">
-      <div class="container details-head">
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">Data da compra</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker investment-price">Qtd.</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker investment-return">Preço de compra (R$)</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">Taxas (R$)</h1>
-        </div>
-      </div>
-
-      <div class="container details-content">
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">23/12/18</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">100</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker investment-return">72,00</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">18,90</h1>
-        </div>
-      </div>
-
-      <div class="container details-content">
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">23/12/18</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">100</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker investment-return">72,00</h1>
-        </div>
-        <div class="col-xs-3">
-          <h2 class="asset__sticker">18,90</h1>
-        </div>
-      </div>
-
       
-    </div>
+    <% for(var i=0; i<20 ; i++) { %>
+          
+      <div class="container asset-box" data-toggle="collapse" href="#details">
+        <div class="col-xs-4">
+          <h1 class="asset__sticker">ITSA4</h1>
+        </div>
+        <div class="col-xs-4">
+          <h1 class="asset__sticker investment-price">R$ 123,00</h1>
+        </div>
+        <div class="col-xs-4">
+          <h1 class="asset__sticker investment-return">15%</h1>
+        </div>
+      </div>
 
-  <% } %>
+      <div id="details" class="container collapse details-box">
+        <div class="container details-head">
+          <div class="col-xs-3">
+            <h2 class="asset__sticker">Data da compra</h1>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="asset__sticker investment-price">Qtd.</h1>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="asset__sticker investment-return">Preço de compra (R$)</h1>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="asset__sticker">Taxas (R$)</h1>
+          </div>
+        </div>
+
+        <div class="container details-content">
+          <div class="col-xs-3">
+            <h2 class="asset__sticker">23/12/18</h1>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="asset__sticker">100</h1>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="asset__sticker investment-return">72,00</h1>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="asset__sticker">18,90</h1>
+          </div>
+        </div>
+        
+      </div>
+
+    <% } %>
+  </section>
+
+  <section id="history" class="history-section tabcontent">
+    <div class="container title-margin">
+      histórico
+    </div>
+  </section>
+
+  <script type="text/javascript">
+    function openSection(evt, sectionName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(sectionName).style.display = "block";
+    evt.currentTarget.className += " active";
+} 
+  </script>
   
 </body>
 </html>
