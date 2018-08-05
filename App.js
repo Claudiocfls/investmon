@@ -1,20 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser')
-var firebase = require('firebase');
 
-// <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
-
-var config = {
-    apiKey: "AIzaSyAolTP8Rt1n7xxqoSt_luGAWWg5H7mcMEw",
-    authDomain: "investment-monitor.firebaseapp.com",
-    databaseURL: "https://investment-monitor.firebaseio.com",
-    projectId: "investment-monitor",
-    storageBucket: "investment-monitor.appspot.com",
-    messagingSenderId: "938345577728"
-};
-
-firebase.initializeApp(config);
 
 
 app.use(bodyParser.json());
@@ -37,7 +24,6 @@ var matematica = require('./math_custom.js');
 
 app.get('/', function(req, res) {
   console.log(matematica.perimeter(4));
-  var user = firebase.auth().currentUser;
   if (user) {
     console.log("alguem esta logado");
   }
@@ -61,12 +47,6 @@ app.post('/user/signup', function(req, res) {
     console.log(req.body);
     var email = req.body.email;
     var password = req.body.psw;
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
   }
   res.render('../public/login', {name: "Claudio"});
 });
