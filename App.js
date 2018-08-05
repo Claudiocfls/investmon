@@ -2,20 +2,18 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000
-
+const path = require('path')
 
 app.use(bodyParser.json());
-
-//support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-
-var path = require('path');
+app.use(express.static(__dirname + '/public/templates'));
 
 var wiki = require('./wiki');
 app.use('/wiki', wiki);
 
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // app.use(express.static(__dirname + '/public/templates'));
