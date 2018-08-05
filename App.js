@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser')
-
+const PORT = process.env.PORT || 5000
 
 
 app.use(bodyParser.json());
@@ -23,10 +23,8 @@ app.set('view engine', 'ejs');
 var matematica = require('./math_custom.js');
 
 app.get('/', function(req, res) {
-  console.log(matematica.perimeter(4));
-  if (user) {
-    console.log("alguem esta logado");
-  }
+  // console.log(matematica.perimeter(4));
+
   // console.log(req.query);
   // res.send({teste:2, outro:req.query.teste});
   // res.render('index.html', { name: "Claudio" });
@@ -51,6 +49,6 @@ app.post('/user/signup', function(req, res) {
   res.render('../public/login', {name: "Claudio"});
 });
 
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log('Example app listening on port 3000!');
 });
