@@ -21,10 +21,15 @@ app.set('view engine', 'ejs');
 // app.use(express.static(__dirname + '/public/templates'));
 
 var matematica = require('./math_custom.js');
-
 app.get('/', function(req, res) {
-  teste = axios.get('https://www.mercadobitcoin.net/api/BTC/ticker/');
-  res.render('templates/index', {name: teste});
+  var btcprice;
+  axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
+      .then(({data: {BTC, ETH, LTC}}) => { 
+          btcprice =  BTC.USD;
+          res.render('templates/index', {name: btcprice});
+
+      })
+      .catch(console.error);
 });
 
 app.get('/user/signin', function(req, res) {
