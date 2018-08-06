@@ -76,7 +76,7 @@ app.get('/user/signin', function(req, res) {
   res.render('templates/login', {name: "Claudio", root_dir2: path.join(__dirname)});
 });
 
-app.get('/user/signup', function(req, res) {
+app.get('/user/create', function(req, res) {
   res.render('templates/login', {name: "Claudio"});
 });
 
