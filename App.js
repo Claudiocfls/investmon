@@ -55,8 +55,8 @@ app.get('/porta', function(req, res) {
   
 });
 
-app.get('/todos', function(req, res) {
-  models.Todo.findAll({}).then(function(todos) {
+app.get('/userlist', function(req, res) {
+  models.User.findAll({}).then(function(todos) {
     res.json(todos);
   });
 });
@@ -80,13 +80,18 @@ app.get('/user/signup', function(req, res) {
   res.render('templates/login', {name: "Claudio"});
 });
 
-app.post('/user/signup', function(req, res) {
+app.post('/user/create', function(req, res) {
   if (req != null){
-    console.log(req.body);
-    var email = req.body.email;
-    var password = req.body.psw;
+    // console.log(req.body);
+    var email2 = req.body.email;
+  models.User.create({
+    email: email2
+  }).then(function(user) {
+    res.json(user);
+  });
+
   }
-  res.render('../public/login', {name: "Claudio"});
+  // res.render('../public/login', {name: "Claudio"});
 });
 
 
