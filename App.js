@@ -8,12 +8,8 @@ const { Pool } = require('pg');
 
 var axios = require('axios');
 
-/**
- * Init Alpha Vantage with your API key.
- *
- * @param {String} key
- *   Your Alpha Vantage API key.
- */
+var models = require('./server/models/index.js');
+
 
 const alpha = require('alphavantage')({ key: String( process.env.API_KEY_ALPHAADVANTAGE ) } ) ;
 
@@ -46,22 +42,29 @@ app.get('/', function(req, res) {
   
 });
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
+app.post('/users', function(req, res) {
+  models.User.create({
+    email: req.body.email
+  }).then(function(user) {
+    res.json(user);
+  });
 });
 
-app.get('/db', async (req, res) => {
-  try {
-    const client = await pool.connect()
-    const result = await client.query('SELECT * FROM test_table');
-    res.render('templates/db', result);
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
+app.get('/todos', function(req, res) {
+  models.Todo.findAll({}).then(function(todos) {
+    res.json(todos);
+  });
 });
+
+app.post('/todos', function(req, res) {
+  models.Todo.create({
+    title: req.body.title,
+    UserId: req.body.user_id
+  }).then(function(todo) {
+    res.json(todo);
+  });
+});
+
 
 app.get('/user/signin', function(req, res) {
   
