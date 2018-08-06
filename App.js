@@ -50,6 +50,11 @@ app.post('/users', function(req, res) {
   });
 });
 
+app.get('/porta', function(req, res) {
+  res.send(String(PORT));
+  
+});
+
 app.get('/todos', function(req, res) {
   models.Todo.findAll({}).then(function(todos) {
     res.json(todos);
