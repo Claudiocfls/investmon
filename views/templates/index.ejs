@@ -4,7 +4,7 @@
 
 <html lang="pt-br">
 <head>
-  <title>Express HTML</title>
+  <title>Investments Monitor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="../Assets/favicon.ico">
   <meta name="Description" content="web app for investments monitoring">
@@ -114,7 +114,7 @@
         <li class="col-xs-4"><a href="#"><img class="menu-svg" src="Assets/buy.svg" alt="add icon"></a></li>
         <li class="col-xs-4"><a href="#" onclick="openSection(event, 'history')"><img class="menu-svg" src="Assets/history.svg" alt="history icon"></a></li>
       </ul>
-      <div>
+      <div style="color: #fff;">
         total da carteira: 15%
       </div>
     </div>
@@ -200,17 +200,23 @@
   </script>
 
   <script type="text/javascript">
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-          // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
-        });
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      console.log('Service Worker and Push is supported');
+
+      navigator.serviceWorker.register('service-worker.js')
+      .then(function(swReg) {
+        console.log('Service Worker is registered', swReg);
+
+        swRegistration = swReg;
+      })
+      .catch(function(error) {
+        console.error('Service Worker Error', error);
       });
+    } else {
+      console.warn('Push messaging is not supported');
+      pushButton.textContent = 'Push Not Supported';
     }
+
 
   </script>
   
