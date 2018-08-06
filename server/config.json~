@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "claudio_db",
-    "password": null,
+    "password": "claudio_db",
     "database": "im_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
@@ -14,10 +14,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "im_production",
-    "host": "127.0.0.1",
+    "use_env_variable": "DATABASE_URL",
+    "username": "claudio_db",
+    "password": "claudio_db",
+    "database": "im_development",
+    "host": "investmon.herokuapp.com",
     "dialect": "postgres"
   }
 }
