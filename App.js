@@ -36,8 +36,8 @@ app.get('/', function(req, res) {
   // .then(({data: {BTC, ETH, LTC}}) => { 
   alpha.data.daily(`itsa4.sa`).then(data => {
     var lastKey = Object.keys(data['Time Series (Daily)'])[0];
-    console.log(data['Time Series (Daily)'][lastKey]['4. close']);
-    res.render('templates/index', {name: "Claudio"});
+    var stock_price = data['Time Series (Daily)'][lastKey]['4. close'];
+    res.render('templates/index', {stock: stock_price});
   });
   
 });

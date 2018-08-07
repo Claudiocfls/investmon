@@ -34,6 +34,8 @@
         background-color: #f1f1f1;
       }
 
+      
+
       h1 {
         font-size: 18px;
         color: #000;
@@ -82,8 +84,8 @@
       }
 
       .menu-svg{
-        width: 100%;
-        height: auto;
+        width: 40px;
+        height: 40px;
       }
 
       .button-plus{
@@ -93,6 +95,21 @@
 
       .title-margin{
         margin-top: 75px !important;
+      }
+      body{
+        background-color: #000003;
+        background-image: url("https://www.transparenttextures.com/patterns/brilliant.png");
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
+        /*background-image: url("https://www.transparenttextures.com/patterns/escheresque-dark.png");*/
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
+        /*background-image: url("https://www.transparenttextures.com/patterns/little-knobs.png");*/
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+              }
+
+      .navbar-height{
+        /*max-height: 50px;*/
       }
 
     </style>
@@ -104,8 +121,8 @@
   <img class="button-plus feedback" src="Assets/plus.svg" alt="add button">
   </div>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+  <nav class="navbar navbar-inverse navbar-fixed-top navbar-height">
+    <div class="container ">
       <!-- <div class="navbar-header">
         <a class="navbar-brand" href="#">Investments Monitor</a>
       </div> -->
@@ -125,21 +142,21 @@
       carteira
     </div>
       
-    <% for(var i=0; i<20 ; i++) { %>
+    <% for(var i=0; i<5 ; i++) { %>
           
-      <div class="container asset-box" data-toggle="collapse" href="#details">
+      <div class="container asset-box" data-toggle="collapse" href="#details<%= i %>">
         <div class="col-xs-4">
           <h1 class="asset__sticker">ITSA4</h1>
         </div>
         <div class="col-xs-4">
-          <h1 class="asset__sticker investment-price">R$ 123,00</h1>
+          <h1 class="asset__sticker investment-price">R$<%= stock %></h1>
         </div>
         <div class="col-xs-4">
           <h1 class="asset__sticker investment-return">15%</h1>
         </div>
       </div>
 
-      <div id="details" class="container collapse details-box">
+      <div id="details<%= i %>" class="container collapse details-box" style="background-color: #000">
         <div class="container details-head">
           <div class="col-xs-3">
             <h2 class="asset__sticker">Data da compra</h1>
