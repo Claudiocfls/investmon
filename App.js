@@ -4,18 +4,12 @@ var bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000
 const path = require('path')
 
-const { Pool } = require('pg');
-
-var axios = require('axios');
-
 var models = require('./server/models/index.js');
-
 
 const alpha = require('alphavantage')({ key: String( process.env.API_KEY_ALPHAADVANTAGE ) } ) ;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 app.use(express.static(__dirname + '/public'));
 
@@ -32,14 +26,11 @@ app.set('view engine', 'ejs');
 var matematica = require('./math_custom.js');
 app.get('/', function(req, res) {
   var btcprice;
-  // axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
-  // .then(({data: {BTC, ETH, LTC}}) => { 
   alpha.data.daily(`itsa4.sa`).then(data => {
     var lastKey = Object.keys(data['Time Series (Daily)'])[0];
     var stock_price = data['Time Series (Daily)'][lastKey]['4. close'];
     res.render('templates/index', {stock: stock_price});
   });
-  
 });
 
 app.post('/users', function(req, res) {
@@ -70,7 +61,6 @@ app.post('/todos', function(req, res) {
   });
 });
 
-
 app.get('/user/signin', function(req, res) {
   
   res.render('templates/login', {name: "Claudio", root_dir2: path.join(__dirname)});
@@ -89,15 +79,10 @@ app.post('/user/create', function(req, res) {
   }).then(function(user) {
     res.json(user);
   });
-
   }
-  // res.render('../public/login', {name: "Claudio"});
 });
-
-
 
 app.listen(PORT, function() {
   console.log('Example app listening on port 5000!');
 });
 
-// registerServiceWorker();
