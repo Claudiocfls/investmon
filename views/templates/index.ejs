@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
-  <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+  <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
 
   <!-- Tell the browser it's a PWA -->
     <style type="text/css">
@@ -74,8 +74,8 @@
 
       #mybutton {
         position: fixed;
-        bottom: 4px;
-        right: 10px;
+        bottom: 15px;
+        right: 15px;
         z-index: 10;
       }
 
@@ -86,6 +86,11 @@
       .menu-svg{
         width: 35px;
         height: 35px;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+       
       }
 
       .button-plus{
@@ -112,6 +117,24 @@
         /*max-height: 50px;*/
       }
 
+      .navbar-app{
+        margin: 0;
+        height: 75px;
+        width: 100% !important;
+        padding: 0 !important;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        z-index: 10;
+      }
+      .icon-selected-color{
+        background-color: #080808;
+      }
+
+      .button-wrapper{
+        height: 100%;
+      }
+
     </style>
 </head>
 <body>
@@ -121,22 +144,20 @@
   <img class="button-plus feedback" src="Assets/plus.svg" alt="add button">
   </div>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top navbar-height">
-    <div class="container ">
-      <!-- <div class="navbar-header">
-        <a class="navbar-brand" href="#">Investments Monitor</a>
-      </div> -->
-      <ul class="nav navbar-nav">
-        <li class="col-xs-3"><a href="#" onclick="openSection(event, 'wallet')"><img class="menu-svg" src="Assets/wallet.svg" alt="wallet icon" ></a></li>
-        <li class="col-xs-3"><a href="#"><img class="menu-svg" src="Assets/buy.svg" alt="add icon"></a></li>
-        <li class="col-xs-3"><a href="#"><img class="menu-svg" src="Assets/buy.svg" alt="add icon"></a></li>
-        <li class="col-xs-3"><a href="#" onclick="openSection(event, 'history')"><img class="menu-svg" src="Assets/history.svg" alt="history icon"></a></li>
-      </ul>
-      <div style="color: #fff;">
-        total da carteira: 15%
-      </div>
+    <div class="container navbar-app">
+        <div class="button-wrapper icon-selected-color col-xs-3 col-xl-3" onclick="openSection(event, 'wallet')">
+          <img class="menu-svg" src="Assets/wallet.svg" alt="wallet icon" >
+        </div>
+        <div class="button-wrapper col-xs-3 col-xl-3">
+          <img class="menu-svg" src="Assets/buy.svg" alt="add icon">
+        </div>
+        <div class="button-wrapper col-xs-3 col-xl-3">
+          <img class="menu-svg" src="Assets/buy.svg" alt="add icon">
+        </div>
+        <div class="button-wrapper col-xs-3 col-xl-3" onclick="openSection(event, 'history')">
+          <img class="menu-svg" src="Assets/history.svg" alt="history icon">
+        </div>
     </div>
-  </nav>
 
   <section id="wallet" class="wallet-section tabcontent">
     <div class="container title-margin">
@@ -211,9 +232,14 @@
         tabcontent[i].style.display = "none";
     }
 
+    tabicons = document.getElementsByClassName("button-wrapper");
+    for (i = 0; i < tabicons.length; i++) {
+        tabicons[i].classList.remove("icon-selected-color");
+    }
+
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(sectionName).style.display = "block";
-    evt.currentTarget.className += " active";
+    evt.currentTarget.className += " active icon-selected-color";
 } 
   </script>
 

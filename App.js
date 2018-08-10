@@ -24,13 +24,21 @@ app.set('view engine', 'ejs');
 // app.use(express.static(__dirname + '/public/templates'));
 
 var matematica = require('./math_custom.js');
+var get_prices = require('./allprices.js');
 app.get('/', function(req, res) {
-  var btcprice;
-  alpha.data.daily(`itsa4.sa`).then(data => {
+  var tickers = ['itsa4.sa', 'abcp11.sa'];
+  // var prices = get_prices.get_prices(tickers);
+  // console.log(prices);
+
+  alpha.data.daily('itsa4.sa').then(data => {
     var lastKey = Object.keys(data['Time Series (Daily)'])[0];
     var stock_price = data['Time Series (Daily)'][lastKey]['4. close'];
+    stock_price = parseFloat(stock_price);
+    stock_price = stock_price.toFixed(2);
     res.render('templates/index', {stock: stock_price});
+
   });
+  
 });
 
 app.post('/users', function(req, res) {
