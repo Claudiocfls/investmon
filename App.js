@@ -25,18 +25,22 @@ app.set('view engine', 'ejs');
 
 var matematica = require('./math_custom.js');
 var get_prices = require('./allprices.js');
+
+var apiaccess = require('./apiaccess.js');
 app.get('/', function(req, res) {
-  var tickers = ['itsa4.sa', 'abcp11.sa'];
-  // var prices = get_prices.get_prices(tickers);
-  // console.log(prices);
-
-  alpha.data.daily('itsa4.sa').then(data => {
-    var lastKey = Object.keys(data['Time Series (Daily)'])[0];
-    var stock_price = data['Time Series (Daily)'][lastKey]['4. close'];
-    stock_price = parseFloat(stock_price);
-    stock_price = stock_price.toFixed(2);
-    res.render('templates/index', {stock: stock_price});
-
+  var list = {1: "itsa4", 
+  2: "abcp11", 
+  5: "vale3",
+  6: "petr3",
+  7: "bova11"};
+  // console.log(apiaccess.getListPrices(list));
+  apiaccess.getListPrices(list).then( function(body){
+    // console.log(body);
+    // res.send(body);
+    res.render('templates/index', {stock: body});
+  })
+  .catch(function(err){
+    console.log(err);
   });
   
 });
@@ -91,6 +95,6 @@ app.post('/user/create', function(req, res) {
 });
 
 app.listen(PORT, function() {
-  console.log('Example app listening on port 5000!');
+  console.log('Example app listening on port '+PORT);
 });
 

@@ -111,13 +111,7 @@
         background-color: #000003;
         background-image: url("https://www.transparenttextures.com/patterns/brilliant.png");
         /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-
-        /*background-image: url("https://www.transparenttextures.com/patterns/escheresque-dark.png");*/
-        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-
-        /*background-image: url("https://www.transparenttextures.com/patterns/little-knobs.png");*/
-        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-              }
+      }
 
       .navbar-height{
         /*max-height: 50px;*/
@@ -170,14 +164,14 @@
       carteira
     </div>
       
-    <% for(var i=0; i<5 ; i++) { %>
+    <% for(var i=0; i < stock.length ; i++) { %>
           
       <div class="container asset-box" data-toggle="collapse" href="#details<%= i %>">
         <div class="col-xs-4">
-          <h1 class="asset__sticker">ITSA4</h1>
+          <h1 class="asset__sticker"><%= stock[i].ticker %></h1>
         </div>
         <div class="col-xs-4">
-          <h1 class="asset__sticker investment-price">R$<%= stock %></h1>
+          <h1 class="asset__sticker investment-price">R$<%= stock[i].price %></h1>
         </div>
         <div class="col-xs-4">
           <h1 class="asset__sticker investment-return">15%</h1>
