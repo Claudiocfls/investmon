@@ -27,17 +27,24 @@ var matematica = require('./math_custom.js');
 var get_prices = require('./allprices.js');
 
 var apiaccess = require('./apiaccess.js');
+var buydetails = require('./buydetails.js');
+
 app.get('/', function(req, res) {
-  var list = {1: "itsa4", 
+  var list = {
+  1: "itsa4", 
   2: "abcp11", 
   5: "vale3",
   6: "petr3",
-  7: "bova11"};
-  // console.log(apiaccess.getListPrices(list));
+  7: "bova11"
+  };
+
   apiaccess.getListPrices(list).then( function(body){
-    // console.log(body);
-    // res.send(body);
-    res.render('templates/index', {stock: body});
+    buydetails.getDetailsOf(list, 2).then(function(data){
+      res.render('templates/index', {stock: body, detailsOf: data});
+      // console.log(data);
+    }).catch(function(err){
+      console.log(err);
+    });
   })
   .catch(function(err){
     console.log(err);

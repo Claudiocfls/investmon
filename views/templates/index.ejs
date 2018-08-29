@@ -64,6 +64,11 @@
 
       .details-content{
         text-align: center;
+        color: #aaa;
+      }
+
+      .details-box{
+        color: #aaa;
       }
 
       h2{
@@ -198,22 +203,24 @@
             <h2 class="asset__sticker">Taxas (R$)</h1>
           </div>
         </div>
-
-        <div class="container details-content">
-          <div class="col-xs-3">
-            <h2 class="asset__sticker">23/12/18</h1>
-          </div>
-          <div class="col-xs-3">
-            <h2 class="asset__sticker">100</h1>
-          </div>
-          <div class="col-xs-3">
-            <h2 class="asset__sticker investment-return">72,00</h1>
-          </div>
-          <div class="col-xs-3">
-            <h2 class="asset__sticker">18,90</h1>
-          </div>
-        </div>
-        
+        <% for(var j=0; j < detailsOf.length ; j++) { %>
+          <% if(detailsOf[j].ticker == stock[i].ticker) {%>
+            <div class="container details-content">
+              <div class="col-xs-3">
+                <h2 class="asset__sticker"><%= detailsOf[j].detail.date %></h1>
+              </div>
+              <div class="col-xs-3">
+                <h2 class="asset__sticker"><%= detailsOf[j].detail.qtd %></h1>
+              </div>
+              <div class="col-xs-3">
+                <h2 class="asset__sticker investment-return"><%= detailsOf[j].detail.price %></h1>
+              </div>
+              <div class="col-xs-3">
+                <h2 class="asset__sticker"><%= detailsOf[j].detail.taxas %></h1>
+              </div>
+            </div>
+          <% } %>
+        <% } %>
       </div>
 
     <% } %>
