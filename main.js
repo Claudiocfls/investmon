@@ -6,7 +6,7 @@ const path = require('path')
 
 var models = require('./server/models/index.js');
 
-const alpha = require('alphavantage')({ key: String( process.env.API_KEY_ALPHAADVANTAGE ) } ) ;
+// const alpha = require('alphavantage')({ key: String( process.env.API_KEY_ALPHAADVANTAGE ) } ) ;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,9 +23,7 @@ app.set('view engine', 'ejs');
 
 // app.use(express.static(__dirname + '/public/templates'));
 
-var matematica = require('./math_custom.js');
-var get_prices = require('./allprices.js');
-
+// var matematica = require('./math_custom.js');
 var apiaccess = require('./apiaccess.js');
 var buydetails = require('./buydetails.js');
 
@@ -52,53 +50,22 @@ app.get('/', function(req, res) {
   
 });
 
-app.post('/users', function(req, res) {
-  models.User.create({
-    email: req.body.email
-  }).then(function(user) {
-    res.json(user);
-  });
-});
-
 app.get('/porta', function(req, res) {
   res.send(String(PORT));
-  
 });
 
-app.get('/userlist', function(req, res) {
-  models.User.findAll({}).then(function(todos) {
-    res.json(todos);
+
+var DBManipulate = require('./DBManipulate.js');
+
+app.post('/addNewBuy',function(req, res){
+  console.log(req.body);
+  DBManipulate.addNewBuy(req.body, 1).then(
+    function(confirmacao){
+      res.redirect('/');
+    }
+  ).catch(function(erro){
+    console.log(erro);
   });
-});
-
-app.post('/todos', function(req, res) {
-  models.Todo.create({
-    title: req.body.title,
-    UserId: req.body.user_id
-  }).then(function(todo) {
-    res.json(todo);
-  });
-});
-
-app.get('/user/signin', function(req, res) {
-  
-  res.render('templates/login', {name: "Claudio", root_dir2: path.join(__dirname)});
-});
-
-app.get('/user/create', function(req, res) {
-  res.render('templates/login', {name: "Claudio"});
-});
-
-app.post('/user/create', function(req, res) {
-  if (req != null){
-    // console.log(req.body);
-    var email2 = req.body.email;
-  models.User.create({
-    email: email2
-  }).then(function(user) {
-    res.json(user);
-  });
-  }
 });
 
 app.listen(PORT, function() {

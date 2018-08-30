@@ -6,15 +6,6 @@ const request = require('request');
 const url = 'http://tradingscrapper.herokuapp.com/api/v2/';
 var getListPrices = function(listOfTickers){
 
-    // axios.post(url, listOfTickers)
-    // .then(function (response) {
-    //     console.log(response);
-    //     return response.data;
-    // })
-    // .catch(function (error) {
-    //     console.log(error);
-    // });
-
     var options = {
             url: url,
             headers: {

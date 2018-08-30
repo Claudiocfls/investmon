@@ -33,13 +33,14 @@
         margin: 5px 0;
         background-color: #f1f1f1;
       }
-      div {
-       -webkit-user-select: none; /* Safari 3.1+ */
-       -moz-user-select: none; /* Firefox 2+ */
-       -ms-user-select: none; /* IE 10+ */
-       user-select: none; /* Standard syntax */
-       }
 
+      input {
+        color: #000;
+      }
+
+      form h1{
+        color: #fff;
+      }
       
 
       h1 {
@@ -151,7 +152,7 @@
 
   <div id="mybutton">
   <!-- <button type="button" class="btn btn-primary feedback">Add</button> -->
-  <img class="button-plus feedback" src="Assets/plus.svg" alt="add button">
+  <img class="button-plus feedback" src="Assets/plus.svg" alt="add button" onclick="openSection(event, 'addTicker')">
   </div>
 
     <div class="container navbar-app">
@@ -161,7 +162,7 @@
         <div class="button-wrapper col-xs-3 col-xl-3">
           <img class="menu-svg" src="Assets/buy.svg" alt="add icon">
         </div>
-        <div class="button-wrapper col-xs-3 col-xl-3">
+        <div class="button-wrapper col-xs-3 col-xl-3" onclick="openSection(event, 'addTicker')">
           <img class="menu-svg" src="Assets/buy.svg" alt="add icon">
         </div>
         <div class="button-wrapper col-xs-3 col-xl-3" onclick="openSection(event, 'history')">
@@ -170,67 +171,15 @@
     </div>
 
   <section id="wallet" class="wallet-section tabcontent">
-    <div class="container title-margin title-color-size">
-      carteira
-    </div>
-      
-    <% for(var i=0; i < stock.length ; i++) { %>
-          
-      <div class="container asset-box" data-toggle="collapse" href="#details<%= i %>">
-        <div class="col-xs-4">
-          <h1 class="asset__sticker"><%= stock[i].ticker %></h1>
-        </div>
-        <div class="col-xs-4">
-          <h1 class="asset__sticker investment-price">R$<%= stock[i].price %></h1>
-        </div>
-        <div class="col-xs-4">
-          <h1 class="asset__sticker investment-return">15%</h1>
-        </div>
-      </div>
-
-      <div id="details<%= i %>" class="container collapse details-box" style="background-color: #000">
-        <div class="container details-head">
-          <div class="col-xs-3">
-            <h2 class="asset__sticker">Data da compra</h1>
-          </div>
-          <div class="col-xs-3">
-            <h2 class="asset__sticker investment-price">Qtd.</h1>
-          </div>
-          <div class="col-xs-3">
-            <h2 class="asset__sticker investment-return">Preço de compra (R$)</h1>
-          </div>
-          <div class="col-xs-3">
-            <h2 class="asset__sticker">Taxas (R$)</h1>
-          </div>
-        </div>
-        <% for(var j=0; j < detailsOf.length ; j++) { %>
-          <% if(detailsOf[j].ticker == stock[i].ticker) {%>
-            <div class="container details-content">
-              <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.date %></h1>
-              </div>
-              <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.qtd %></h1>
-              </div>
-              <div class="col-xs-3">
-                <h2 class="asset__sticker investment-return"><%= detailsOf[j].detail.price %></h1>
-              </div>
-              <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.taxas %></h1>
-              </div>
-            </div>
-          <% } %>
-        <% } %>
-      </div>
-
-    <% } %>
+    <% include partials/main %>
   </section>
 
   <section id="history" class="history-section tabcontent" style="display: none;">
-    <div class="container title-margin title-color-size">
-      <h5>histórico</h5>
-      <p> sem historico </p>
-    </div>
+    <% include partials/history %>
+  </section>
+
+  <section id="addTicker" class="add-section tabcontent" style="display: none;">
+    <% include partials/addticker %>
   </section>
 
   <script type="text/javascript">

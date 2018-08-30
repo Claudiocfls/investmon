@@ -4,7 +4,7 @@
   "description": "investments monitor",
   "main": "App.js",
   "scripts": {
-    "start": "node App.js",
+    "start": "node main.js",
     "test": "node test.js"
   },
   "repository": {
@@ -23,7 +23,9 @@
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
   "author": "Claudio Felipe",
   "license": "MIT",
   "keywords": [
