@@ -26,7 +26,7 @@ app.set('view engine', 'ejs');
 // var matematica = require('./math_custom.js');
 var apiaccess = require('./apiaccess.js');
 var buydetails = require('./buydetails.js');
-
+var getROI = require('./getROI.js');
 app.get('/', function(req, res) {
   var list = {
   1: "itsa4", 
@@ -37,9 +37,11 @@ app.get('/', function(req, res) {
   };
 
   apiaccess.getListPrices(list).then( function(body){
-    buydetails.getDetailsOf(list, 2).then(function(data){
-      res.render('templates/index', {stock: body, detailsOf: data});
-      // console.log(data);
+    buydetails.getDetailsOf(list, 2).then(function(details){
+      for (var i = body.length - 1; i >= 0; i--) {
+        body[i].ROI = getROI.getROI(body[i], details).toFixed(2);
+      }
+      res.render('templates/index', {stock: body, detailsOf: details});
     }).catch(function(err){
       console.log(err);
     });

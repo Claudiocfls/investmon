@@ -12,7 +12,7 @@
           <h1 class="asset__sticker investment-price">R$<%= stock[i].price %></h1>
         </div>
         <div class="col-xs-4">
-          <h1 class="asset__sticker investment-return">15%</h1>
+          <h1 class="asset__sticker investment-return"><%= stock[i].ROI %>%</h1>
         </div>
       </div>
 
@@ -25,7 +25,7 @@
             <h2 class="asset__sticker investment-price">Qtd.</h1>
           </div>
           <div class="col-xs-3">
-            <h2 class="asset__sticker investment-return">Preço de compra (R$)</h1>
+            <h2 class="asset__sticker">Preço de compra (R$)</h1>
           </div>
           <div class="col-xs-3">
             <h2 class="asset__sticker">Taxas (R$)</h1>
@@ -41,7 +41,7 @@
                 <h2 class="asset__sticker"><%= detailsOf[j].detail.qtd %></h1>
               </div>
               <div class="col-xs-3">
-                <h2 class="asset__sticker investment-return"><%= detailsOf[j].detail.price %></h1>
+                <h2 class="asset__sticker"><%= detailsOf[j].detail.price %></h1>
               </div>
               <div class="col-xs-3">
                 <h2 class="asset__sticker"><%= detailsOf[j].detail.taxas %></h1>
