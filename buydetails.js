@@ -7,7 +7,7 @@ var getDetailsOf = function(listOfTickers, userID){
         data = [];
         for (var k in listOfTickers) {
             data.push({ ticker: listOfTickers[k].toUpperCase() , detail: defaultDict});
-            data.push({ ticker: listOfTickers[k].toUpperCase() , detail: defaultDict});
+            // data.push({ ticker: listOfTickers[k].toUpperCase() , detail: defaultDict});
         }
         if (data.length != 0){
             resolve(data);
