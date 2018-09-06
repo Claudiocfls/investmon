@@ -31,20 +31,20 @@
             <h2 class="asset__sticker">Taxas (R$)</h1>
           </div>
         </div>
-        <% for(var j=0; j < detailsOf.length ; j++) { %>
-          <% if(detailsOf[j].ticker == stock[i].ticker) {%>
+        <% for(var j in detailsOf) { %>
+          <% if(detailsOf[j][0] == stock[i].ticker) {%>
             <div class="container details-content">
               <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.date %></h1>
+                <h2 class="asset__sticker"><%= detailsOf[j][3] %></h1>
               </div>
               <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.qtd %></h1>
+                <h2 class="asset__sticker"><%= detailsOf[j][1] %></h1>
               </div>
               <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.price %></h1>
+                <h2 class="asset__sticker"><%= detailsOf[j][2] %></h1>
               </div>
               <div class="col-xs-3">
-                <h2 class="asset__sticker"><%= detailsOf[j].detail.taxas %></h1>
+                <h2 class="asset__sticker">2</h1>
               </div>
             </div>
           <% } %>

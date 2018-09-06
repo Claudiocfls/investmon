@@ -4,10 +4,10 @@ var getROI = function(body, details){
     var currentValue = body.price;
     var buyCost = 0.0;
     var currentQtd = 0;
-    for (var j = details.length - 1; j >= 0; j--) {
-       if (details[j].ticker == ticker) {
-           buyCost += details[j].detail.qtd * details[j].detail.price + details[j].detail.taxas;     
-           currentQtd += details[j].detail.qtd;
+    for (var j in details) {
+       if (details[j][0] == ticker) {
+           buyCost += details[j][1] * details[j][2];
+           currentQtd += details[j][1];
        }
     }
     return (body.price*currentQtd - buyCost)*100/buyCost;

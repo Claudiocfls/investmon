@@ -5,10 +5,12 @@ var models = require('./server/models/index.js');
 var addNewBuy = function(data, userID){
     return new Promise (function(resolve, reject){
 
-        console.log("dados recebidos: ",data, userID);
+        console.log("dados recebidos: ",data, userID), data.addvalue, data.addqtd;
         models.Ticker.create({
             tickerName: data.addticker,
-            userID: userID
+            userID: userID,
+            amountPurchased: data.addqtd,
+            price: parseFloat(data.addvalue)
         }).then(function(response){
             resolve("adicionado: ",response);
         }).catch(function(error){
@@ -26,11 +28,14 @@ var getTickerList = function(userID){
                 userID: userID
             }
         }).then(function(tickerList) {
-            var lista = {}
+            console.log("tickerlist",tickerList);
+            var listaCompleta = {}
+            var listaTickers = {}
             for (var i = tickerList.length - 1; i >= 0; i--) {
-                lista[i] = tickerList[i].tickerName;
+                listaCompleta[i] = [tickerList[i].tickerName.toUpperCase() , tickerList[i].amountPurchased, tickerList[i].price, tickerList[i].createdAt];
+                listaTickers[i] = tickerList[i].tickerName;
             }
-            resolve(lista);
+            resolve([listaCompleta, listaTickers]);
         }).catch(function(error){
             reject(error);
         });

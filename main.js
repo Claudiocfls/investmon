@@ -27,35 +27,35 @@ app.set('view engine', 'ejs');
 var apiaccess = require('./apiaccess.js');
 var buydetails = require('./buydetails.js');
 var getROI = require('./getROI.js');
+
 app.get('/', function(req, res) {
 
   var userID = 1;
   DBManipulate.getTickerList(userID).then(function(list){
-    apiaccess.getListPrices(list).then(function(body){
-      buydetails.getDetailsOf(list, 2).then(function(details){
-        for (var i = body.length - 1; i >= 0; i--) {
-          body[i].ROI = getROI.getROI(body[i], details).toFixed(2);
-        }
-        res.render('templates/index', {stock: body, detailsOf: details});
-      }).catch(function(err){
-        console.log(err);
-      });
-    })
-    .catch(function(err){
-      console.log(err);
-    });
+    var listOfTickers = list[1]; //pode ser filtrado
+    var listOfDetails = list[0];
+    apiaccess.getListPrices(listOfTickers).then(function(body){
+      for (var i = body.length - 1; i >= 0; i--) {
+        body[i].ROI = getROI.getROI(body[i], listOfDetails).toFixed(2);
+      }
+      res.render('templates/index', {stock: body, detailsOf: listOfDetails});
 
-  }).catch(function(error){
-    console.log(error);
+    }).catch(function(err){
+      console.log("erro1:",err);
+    });
+  })
+  .catch(function(err){
+    console.log("erro2",err);
   });
-  
-  var list = {
-  1: "itsa4", 
-  2: "abcp11", 
-  5: "vale3",
-  6: "petr3",
-  7: "bova11"
-  };
+
+
+  // var list = {
+  // 1: "itsa4", 
+  // 2: "abcp11", 
+  // 5: "vale3",
+  // 6: "petr3",
+  // 7: "bova11"
+  // };
 
   
 });
@@ -68,7 +68,7 @@ app.get('/porta', function(req, res) {
 var DBManipulate = require('./DBManipulate.js');
 
 app.post('/addNewBuy',function(req, res){
-  console.log(req.body);
+  // console.log(req.body);
   DBManipulate.addNewBuy(req.body, 1).then(
     function(confirmacao){
       res.redirect('/');

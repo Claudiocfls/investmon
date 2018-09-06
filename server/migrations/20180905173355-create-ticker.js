@@ -14,6 +14,12 @@ module.exports = {
       userID: {
         type: Sequelize.INTEGER
       },
+      amountPurchased: {
+        type: Sequelize.INTEGER
+      },
+      price: {
+        type: Sequelize.FLOAT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
