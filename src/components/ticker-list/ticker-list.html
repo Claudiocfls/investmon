@@ -2,10 +2,13 @@
 <ion-grid class="ticker-list__wrapper">
     <ion-row>
         <ion-col class="ticker-list__name">
-            {{tickerInfo.ticker}}
+            {{tickerInfo["1. symbol"]}}
         </ion-col>
         <ion-col class="ticker-list__price">
-            {{tickerInfo.price}}
+            {{tickerInfo["8. currency"]}}
+        </ion-col>
+        <ion-col class="ticker-list__price">
+            {{tickerInfo["2. name"]}}
         </ion-col>
     </ion-row>
 </ion-grid>

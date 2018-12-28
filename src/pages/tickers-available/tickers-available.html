@@ -6,15 +6,28 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+<!--   <ion-navbar>
     <ion-title>Lista de ativos</ion-title>
-  </ion-navbar>
+  </ion-navbar> -->
 
 </ion-header>
 
 
 <ion-content>   
-    <div *ngFor="let ticker of data; let i = index;">
+    <!-- <div *ngFor="let ticker of data; let i = index;">
         <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>
+    </div> -->
+    <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)">
+    </ion-searchbar>
+      <!-- (ionCancel)="onCancel($event)"> -->
+
+    <div *ngFor="let suggestion of suggestions; let i = index;">
+        <ticker-list [tickerInfo]="suggestion" type="button" (click)="tickerSelected($event, suggestion)"></ticker-list>
+    </div>
+    <div *ngIf="not suggestions">
+      Search for a stock symbol
     </div>
 </ion-content>

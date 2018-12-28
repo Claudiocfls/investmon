@@ -46,7 +46,18 @@ export class ExternalDataProvider {
                     // resolve([this.data.instructions, this.data.questions, this.data.description]);
                 });
         });
- 
+    }
+
+    search(ticker){
+        var defaultUrl = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={0}&apikey=DGVR6QUEONY8LJ9K';
+        defaultUrl = defaultUrl.replace('{0}',ticker);
+        return new Promise(resolve => {
+            this.http.get(defaultUrl).subscribe(data => {
+                    this.data = data;
+                    console.log(data);
+                    resolve(this.data);
+                });
+        });
     }
 
     // [TODO] remove

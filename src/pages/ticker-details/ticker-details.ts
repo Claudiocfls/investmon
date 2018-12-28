@@ -19,6 +19,7 @@ export class TickerDetailsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.ticker = this.navParams.data.ticker;
+    // console
     console.log("thicker: ",this.ticker);
   }
 
