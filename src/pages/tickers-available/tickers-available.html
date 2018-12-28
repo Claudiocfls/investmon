@@ -7,12 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>TickersAvailable</ion-title>
+    <ion-title>Lista de ativos</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>   
+    <div *ngFor="let ticker of data; let i = index;">
+        <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>
+    </div>
 </ion-content>

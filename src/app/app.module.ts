@@ -7,9 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TickersAvailablePage } from '../pages/tickers-available/tickers-available';
+import { TickerDetailsPage } from '../pages/ticker-details/ticker-details';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { TickerInfoComponent } from '../components/ticker-info/ticker-info';
+import { TickerListComponent } from '../components/ticker-list/ticker-list';
 import { ExternalDataProvider } from '../providers/external-data/external-data';
 
 import { HttpModule } from '@angular/http';
@@ -20,7 +22,9 @@ import { HttpModule } from '@angular/http';
     HomePage, 
     TabsPage,
     TickerInfoComponent,
-    TickersAvailablePage
+    TickerListComponent,
+    TickersAvailablePage,
+    TickerDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { HttpModule } from '@angular/http';
     HomePage,
     TabsPage,
     TickersAvailablePage,
-    TickerInfoComponent
+    TickerInfoComponent,
+    TickerListComponent,
+    TickerDetailsPage
   ],
   providers: [
     StatusBar,

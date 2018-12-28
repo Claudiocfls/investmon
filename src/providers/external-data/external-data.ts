@@ -40,7 +40,7 @@ export class ExternalDataProvider {
 
         return new Promise(resolve => {
             this.http.get('https://tradingscrapper.herokuapp.com/all').subscribe(data => {
-                    this.data = data._body;
+                    this.data = data;
                     console.log(data);
                     resolve(this.data);
                     // resolve([this.data.instructions, this.data.questions, this.data.description]);

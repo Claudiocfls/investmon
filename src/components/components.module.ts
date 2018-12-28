@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { TickerInfoComponent } from './ticker-info/ticker-info';
+import { TickerListComponent } from './ticker-list/ticker-list';
 @NgModule({
-	declarations: [TickerInfoComponent],
+	declarations: [TickerInfoComponent,
+    TickerListComponent],
 	imports: [],
-	exports: [TickerInfoComponent]
+	exports: [TickerInfoComponent,
+    TickerListComponent]
 })
 export class ComponentsModule {}
