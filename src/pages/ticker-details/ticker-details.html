@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Detalhes: {{ticker.ticker}}</ion-title>
+    <ion-title>Detalhes: {{ ticker["1. symbol"] }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,4 +17,15 @@
     <div>
         {{ticker["2. name"]}}
     </div>
+    <div>
+        ultimo preço: {{lastInfoPrice}}
+    </div>
+    <div>
+        ultima atualização: {{lastInfoUpdate}}
+    </div>
+    <!-- <div *ngFor="let key of keys; let i = index;">
+        <div *ngIf="i==0">
+            {{key}} : {{data[key]["4. close"]}}
+        </div>
+    </div> -->
 </ion-content>

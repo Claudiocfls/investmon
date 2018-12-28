@@ -60,6 +60,18 @@ export class ExternalDataProvider {
         });
     }
 
+    details(ticker){
+        var defaultUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=5min&apikey=DGVR6QUEONY8LJ9K';
+        defaultUrl = defaultUrl.replace('{0}',ticker);
+        return new Promise(resolve => {
+            this.http.get(defaultUrl).subscribe(data => {
+                    this.data = data;
+                    console.log(data);
+                    resolve(this.data);
+                });
+        });
+    }
+
     // [TODO] remove
     // getLocalData(){
     //     return new Promise(resolve => {

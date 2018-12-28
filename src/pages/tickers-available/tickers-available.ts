@@ -39,7 +39,6 @@ export class TickersAvailablePage {
   }
 
   tickerSelected(event, ticker) {
-    console.log("aqui era o ticker", ticker);
     this.navCtrl.push(TickerDetailsPage, {ticker: ticker});
   }
 

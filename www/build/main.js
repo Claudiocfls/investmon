@@ -1,78 +1,5 @@
 webpackJsonp([2],{
 
-/***/ 126:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExternalDataProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(231);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ExternalDataProvider = /** @class */ (function () {
-    function ExternalDataProvider(http) {
-        this.http = http;
-    }
-    ExternalDataProvider.prototype.load = function () {
-        var _this = this;
-        if (this.data) {
-            return Promise.resolve(this.data);
-        }
-        // return new Promise(resolve => {
-        //     // this.http.get('https://tradingscrapper.herokuapp.com/all').map(res => res.json()).subscribe(data => {
-        //     //     this.data = data;
-        //     //     // console.log(data);
-        //     //     resolve(this.data);
-        //     //     // resolve([this.data.instructions, this.data.questions, this.data.description]);
-        //     // });
-        //     this.http.get('https://tradingscrapper.herokuapp.com/all').subscribe(data => {
-        //         this.data = data;
-        //         console.log("foi",data);
-        //         resolve(this.data);
-        //         // resolve([this.data.instructions, this.data.questions, this.data.description]);
-        //     });
-        // });
-        return new Promise(function (resolve) {
-            _this.http.get('https://tradingscrapper.herokuapp.com/all').subscribe(function (data) {
-                _this.data = data;
-                console.log(data);
-                resolve(_this.data);
-                // resolve([this.data.instructions, this.data.questions, this.data.description]);
-            });
-        });
-    };
-    ExternalDataProvider.prototype.search = function (ticker) {
-        var _this = this;
-        var defaultUrl = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={0}&apikey=DGVR6QUEONY8LJ9K';
-        defaultUrl = defaultUrl.replace('{0}', ticker);
-        return new Promise(function (resolve) {
-            _this.http.get(defaultUrl).subscribe(function (data) {
-                _this.data = data;
-                console.log(data);
-                resolve(_this.data);
-            });
-        });
-    };
-    ExternalDataProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
-    ], ExternalDataProvider);
-    return ExternalDataProvider;
-}());
-
-//# sourceMappingURL=external-data.js.map
-
-/***/ }),
-
 /***/ 149:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,6 +7,7 @@ var ExternalDataProvider = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TickerDetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__ = __webpack_require__(80);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -89,6 +17,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 /**
@@ -98,23 +27,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var TickerDetailsPage = /** @class */ (function () {
-    function TickerDetailsPage(navCtrl, navParams) {
+    function TickerDetailsPage(navCtrl, navParams, extDataProv) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.extDataProv = extDataProv;
+        this.lastInfoPrice = "Carregando...";
         this.ticker = this.navParams.data.ticker;
-        // console
         console.log("thicker: ", this.ticker);
+        console.log("teste", this.ticker['1. symbol']);
+        this.extDataProv.details(this.ticker['1. symbol'])
+            .then(function (data) {
+            _this.data = (new Function("return " + data._body + ";")());
+            _this.data = _this.data['Time Series (5min)'];
+            console.log("diario", _this.data);
+            _this.keys = Object.keys(_this.data);
+            _this.lastInfoPrice = _this.data[_this.keys[0]]["4. close"];
+            _this.lastInfoUpdate = _this.keys[0];
+        });
     }
     TickerDetailsPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad TickerDetailsPage');
     };
     TickerDetailsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ticker-details',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/ticker-details/ticker-details.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Detalhes: {{ticker.ticker}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <div class="ticker__name">\n        {{ ticker["1. symbol"] }}\n    </div>\n    <div>\n        {{ ticker["8. currency"] }}\n    </div>\n    <div>\n        {{ticker["2. name"]}}\n    </div>\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/ticker-details/ticker-details.html"*/,
+            selector: 'page-ticker-details',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/ticker-details/ticker-details.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Detalhes: {{ ticker["1. symbol"] }}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <div class="ticker__name">\n        {{ ticker["1. symbol"] }}\n    </div>\n    <div>\n        {{ ticker["8. currency"] }}\n    </div>\n    <div>\n        {{ticker["2. name"]}}\n    </div>\n    <div>\n        ultimo preço: {{lastInfoPrice}}\n    </div>\n    <div>\n        ultima atualização: {{lastInfoUpdate}}\n    </div>\n    <!-- <div *ngFor="let key of keys; let i = index;">\n        <div *ngIf="i==0">\n            {{key}} : {{data[key]["4. close"]}}\n        </div>\n    </div> -->\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/ticker-details/ticker-details.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */]) === "function" && _c || Object])
     ], TickerDetailsPage);
     return TickerDetailsPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=ticker-details.js.map
@@ -128,7 +70,7 @@ var TickerDetailsPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TickersAvailablePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ticker_details_ticker_details__ = __webpack_require__(149);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -168,7 +110,6 @@ var TickersAvailablePage = /** @class */ (function () {
         console.log('ionViewDidLoad TickersAvailablePage', this.data);
     };
     TickersAvailablePage.prototype.tickerSelected = function (event, ticker) {
-        console.log("aqui era o ticker", ticker);
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__ticker_details_ticker_details__["a" /* TickerDetailsPage */], { ticker: ticker });
     };
     TickersAvailablePage.prototype.onInput = function (event) {
@@ -297,7 +238,7 @@ var TabsPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__ = __webpack_require__(80);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -362,7 +303,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_tabs_tabs__ = __webpack_require__(275);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_ticker_info_ticker_info__ = __webpack_require__(462);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_ticker_list_ticker_list__ = __webpack_require__(463);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_external_data_external_data__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_external_data_external_data__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(231);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -560,6 +501,91 @@ var TickerListComponent = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=ticker-list.js.map
+
+/***/ }),
+
+/***/ 80:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExternalDataProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(231);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ExternalDataProvider = /** @class */ (function () {
+    function ExternalDataProvider(http) {
+        this.http = http;
+    }
+    ExternalDataProvider.prototype.load = function () {
+        var _this = this;
+        if (this.data) {
+            return Promise.resolve(this.data);
+        }
+        // return new Promise(resolve => {
+        //     // this.http.get('https://tradingscrapper.herokuapp.com/all').map(res => res.json()).subscribe(data => {
+        //     //     this.data = data;
+        //     //     // console.log(data);
+        //     //     resolve(this.data);
+        //     //     // resolve([this.data.instructions, this.data.questions, this.data.description]);
+        //     // });
+        //     this.http.get('https://tradingscrapper.herokuapp.com/all').subscribe(data => {
+        //         this.data = data;
+        //         console.log("foi",data);
+        //         resolve(this.data);
+        //         // resolve([this.data.instructions, this.data.questions, this.data.description]);
+        //     });
+        // });
+        return new Promise(function (resolve) {
+            _this.http.get('https://tradingscrapper.herokuapp.com/all').subscribe(function (data) {
+                _this.data = data;
+                console.log(data);
+                resolve(_this.data);
+                // resolve([this.data.instructions, this.data.questions, this.data.description]);
+            });
+        });
+    };
+    ExternalDataProvider.prototype.search = function (ticker) {
+        var _this = this;
+        var defaultUrl = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={0}&apikey=DGVR6QUEONY8LJ9K';
+        defaultUrl = defaultUrl.replace('{0}', ticker);
+        return new Promise(function (resolve) {
+            _this.http.get(defaultUrl).subscribe(function (data) {
+                _this.data = data;
+                console.log(data);
+                resolve(_this.data);
+            });
+        });
+    };
+    ExternalDataProvider.prototype.details = function (ticker) {
+        var _this = this;
+        var defaultUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=5min&apikey=DGVR6QUEONY8LJ9K';
+        defaultUrl = defaultUrl.replace('{0}', ticker);
+        return new Promise(function (resolve) {
+            _this.http.get(defaultUrl).subscribe(function (data) {
+                _this.data = data;
+                console.log(data);
+                resolve(_this.data);
+            });
+        });
+    };
+    ExternalDataProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
+    ], ExternalDataProvider);
+    return ExternalDataProvider;
+}());
+
+//# sourceMappingURL=external-data.js.map
 
 /***/ })
 
