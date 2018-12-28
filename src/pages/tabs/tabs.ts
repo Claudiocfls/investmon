@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { TickersAvailablePage } from '../tickers-available/tickers-available';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -8,6 +8,7 @@ import { HomePage } from '../home/home';
 export class TabsPage {
 
   tab1Root = HomePage;
+  tab2Root = TickersAvailablePage;
 
   constructor() {
 

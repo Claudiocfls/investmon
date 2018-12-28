@@ -6,28 +6,40 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { TickersAvailablePage } from '../pages/tickers-available/tickers-available';
 import { TabsPage } from '../pages/tabs/tabs';
+
+import { TickerInfoComponent } from '../components/ticker-info/ticker-info';
+import { ExternalDataProvider } from '../providers/external-data/external-data';
+
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage, 
-    TabsPage
+    TabsPage,
+    TickerInfoComponent,
+    TickersAvailablePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    TabsPage
+    TabsPage,
+    TickersAvailablePage,
+    TickerInfoComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ExternalDataProvider
   ]
 })
 export class AppModule {}
