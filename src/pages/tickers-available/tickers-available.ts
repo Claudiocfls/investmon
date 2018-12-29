@@ -51,6 +51,7 @@ export class TickersAvailablePage {
     if(this.symbolToSearch.length != 0){
       this.extDataProv.search(this.symbolToSearch)
       .then(data => {
+        console.log(data);
         this.suggestions = (new Function("return " +data._body+ ";")());
         this.suggestions = this.suggestions.bestMatches;
         console.log("resposta: ",this.suggestions);

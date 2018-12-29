@@ -7,8 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ticker-info></ticker-info>
-  <ticker-info></ticker-info>
-  <ticker-info></ticker-info>
-
+  <div *ngFor="let tickerm of tickerMonitored | async">
+    <ticker-info [ticker]="tickerm" type="button" (click)="purchaseSelected(tickerm)"></ticker-info>
+  </div>
 </ion-content>

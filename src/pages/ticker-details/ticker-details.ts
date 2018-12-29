@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ExternalDataProvider } from '../../providers/external-data/external-data';
+import { FirebaseDataProvider } from '../../providers/firebase-data/firebase-data';
+import { AlertController } from 'ionic-angular';
+
+
 /**
  * Generated class for the TickerDetailsPage page.
  *
@@ -25,12 +29,15 @@ export class TickerDetailsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public extDataProv: ExternalDataProvider) {
+    public extDataProv: ExternalDataProvider,
+    private alertCtrl: AlertController,
+    public firebaseProvider: FirebaseDataProvider) {
       this.ticker = this.navParams.data.ticker;
       console.log("thicker: ",this.ticker);
       console.log("teste", this.ticker['1. symbol']);
       this.extDataProv.details(this.ticker['1. symbol'])
       .then(data => {
+        console.log("aqui ta funcionando",data);
         this.data = (new Function("return " +data._body+ ";")());
         this.data = this.data['Time Series (5min)'];
         console.log("diario",this.data);
@@ -42,6 +49,54 @@ export class TickerDetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TickerDetailsPage');
+  }
+
+  saveData(qtd, price) {
+    var symbol = this.ticker['1. symbol'];
+    var price = price;
+    var quantity = qtd;
+    var tickerToAdd = {
+      "price" : parseInt(price,10),
+      "quantity": parseInt(quantity,10),
+      "symbol": symbol
+    }
+    this.firebaseProvider.add(tickerToAdd); 
+  }
+
+  presentPrompt() {
+    let alert = this.alertCtrl.create({
+      title: 'Adicionar novo ativo',
+      inputs: [
+        {
+          name: 'quantity',
+          placeholder: 'Quantidade',
+          type: 'number'
+        },
+        {
+          name: 'price',
+          placeholder: 'Preço',
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Adicionar',
+          handler: data => {
+            console.log(data.quantity);
+            console.log(data.price);
+            this.saveData(data.quantity, data.price);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

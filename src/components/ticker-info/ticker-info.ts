@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the TickerInfoComponent component.
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
   templateUrl: 'ticker-info.html'
 })
 export class TickerInfoComponent {
-
+  @Input('ticker') ticker: any;
   text: string;
 
   constructor() {

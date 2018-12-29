@@ -8,11 +8,17 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TickersAvailablePage } from '../pages/tickers-available/tickers-available';
 import { TickerDetailsPage } from '../pages/ticker-details/ticker-details';
+import { PurchaseDetailsPage } from '../pages/purchase-details/purchase-details';
 import { TabsPage } from '../pages/tabs/tabs';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { firebaseConfig } from '../settings';
 
 import { TickerInfoComponent } from '../components/ticker-info/ticker-info';
 import { TickerListComponent } from '../components/ticker-list/ticker-list';
 import { ExternalDataProvider } from '../providers/external-data/external-data';
+import { FirebaseDataProvider } from '../providers/firebase-data/firebase-data';
 
 import { HttpModule } from '@angular/http';
 
@@ -24,12 +30,15 @@ import { HttpModule } from '@angular/http';
     TickerInfoComponent,
     TickerListComponent,
     TickersAvailablePage,
-    TickerDetailsPage
+    TickerDetailsPage,
+    PurchaseDetailsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,13 +48,15 @@ import { HttpModule } from '@angular/http';
     TickersAvailablePage,
     TickerInfoComponent,
     TickerListComponent,
-    TickerDetailsPage
+    TickerDetailsPage,
+    PurchaseDetailsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ExternalDataProvider
+    ExternalDataProvider,
+    FirebaseDataProvider
   ]
 })
 export class AppModule {}
