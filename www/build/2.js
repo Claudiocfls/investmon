@@ -1,14 +1,14 @@
 webpackJsonp([2],{
 
-/***/ 496:
+/***/ 506:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseDetailsPageModule", function() { return PurchaseDetailsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TickerDetailsPageModule", function() { return TickerDetailsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__purchase_details__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ticker_details__ = __webpack_require__(157);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var PurchaseDetailsPageModule = /** @class */ (function () {
-    function PurchaseDetailsPageModule() {
+var TickerDetailsPageModule = /** @class */ (function () {
+    function TickerDetailsPageModule() {
     }
-    PurchaseDetailsPageModule = __decorate([
+    TickerDetailsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__purchase_details__["a" /* PurchaseDetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__ticker_details__["a" /* TickerDetailsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__purchase_details__["a" /* PurchaseDetailsPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ticker_details__["a" /* TickerDetailsPage */]),
             ],
         })
-    ], PurchaseDetailsPageModule);
-    return PurchaseDetailsPageModule;
+    ], TickerDetailsPageModule);
+    return TickerDetailsPageModule;
 }());
 
-//# sourceMappingURL=purchase-details.module.js.map
+//# sourceMappingURL=ticker-details.module.js.map
 
 /***/ })
 
