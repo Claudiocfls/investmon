@@ -43,16 +43,13 @@ export class TickersAvailablePage {
   }
 
   onInput(event) {
-    if(event.data){
-      this.symbolToSearch = this.symbolToSearch + event.data;
-    } else {
-      this.symbolToSearch = this.symbolToSearch.slice(0,-1);
-    }
+    console.log("evento", event);
+    this.symbolToSearch = event.srcElement.value;
     if(this.symbolToSearch.length != 0){
       this.extDataProv.search(this.symbolToSearch)
       .then(data => {
         console.log(data);
-        this.suggestions = (new Function("return " +data._body+ ";")());
+        this.suggestions = (new Function("return " +data["_body"]+ ";")());
         this.suggestions = this.suggestions.bestMatches;
         console.log("resposta: ",this.suggestions);
       })
@@ -60,6 +57,5 @@ export class TickersAvailablePage {
       this.suggestions = [];
     }
     console.log(this.symbolToSearch);
-    console.log("evento", event);
   }
 }

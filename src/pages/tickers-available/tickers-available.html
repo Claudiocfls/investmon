@@ -22,6 +22,8 @@
       [showCancelButton]="shouldShowCancel"
       (ionInput)="onInput($event)">
     </ion-searchbar>
+
+    <!-- <ion-searchbar [(ngModel)]="terms"></ion-searchbar> -->
       <!-- (ionCancel)="onCancel($event)"> -->
 
     <div *ngFor="let suggestion of suggestions; let i = index;">

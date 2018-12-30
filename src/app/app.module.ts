@@ -20,6 +20,8 @@ import { TickerListComponent } from '../components/ticker-list/ticker-list';
 import { ExternalDataProvider } from '../providers/external-data/external-data';
 import { FirebaseDataProvider } from '../providers/firebase-data/firebase-data';
 
+import { SearchPipe } from '../pipes/search/search';
+
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -31,7 +33,8 @@ import { HttpModule } from '@angular/http';
     TickerListComponent,
     TickersAvailablePage,
     TickerDetailsPage,
-    PurchaseDetailsPage
+    PurchaseDetailsPage,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

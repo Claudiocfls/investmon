@@ -38,7 +38,7 @@ export class TickerDetailsPage {
       this.extDataProv.details(this.ticker['1. symbol'])
       .then(data => {
         console.log("aqui ta funcionando",data);
-        this.data = (new Function("return " +data._body+ ";")());
+        this.data = (new Function("return " +data["_body"]+ ";")());
         this.data = this.data['Time Series (5min)'];
         console.log("diario",this.data);
         this.keys = Object.keys(this.data);

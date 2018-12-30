@@ -148,12 +148,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-/**
- * Generated class for the PurchaseDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 var PurchaseDetailsPage = /** @class */ (function () {
     function PurchaseDetailsPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
@@ -221,7 +215,7 @@ var TickerDetailsPage = /** @class */ (function () {
         this.extDataProv.details(this.ticker['1. symbol'])
             .then(function (data) {
             console.log("aqui ta funcionando", data);
-            _this.data = (new Function("return " + data._body + ";")());
+            _this.data = (new Function("return " + data["_body"] + ";")());
             _this.data = _this.data['Time Series (5min)'];
             console.log("diario", _this.data);
             _this.keys = Object.keys(_this.data);
@@ -347,17 +341,13 @@ var TickersAvailablePage = /** @class */ (function () {
     };
     TickersAvailablePage.prototype.onInput = function (event) {
         var _this = this;
-        if (event.data) {
-            this.symbolToSearch = this.symbolToSearch + event.data;
-        }
-        else {
-            this.symbolToSearch = this.symbolToSearch.slice(0, -1);
-        }
+        console.log("evento", event);
+        this.symbolToSearch = event.srcElement.value;
         if (this.symbolToSearch.length != 0) {
             this.extDataProv.search(this.symbolToSearch)
                 .then(function (data) {
                 console.log(data);
-                _this.suggestions = (new Function("return " + data._body + ";")());
+                _this.suggestions = (new Function("return " + data["_body"] + ";")());
                 _this.suggestions = _this.suggestions.bestMatches;
                 console.log("resposta: ", _this.suggestions);
             });
@@ -366,17 +356,15 @@ var TickersAvailablePage = /** @class */ (function () {
             this.suggestions = [];
         }
         console.log(this.symbolToSearch);
-        console.log("evento", event);
     };
     TickersAvailablePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tickers-available',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/'<!--\n  Generated template for the TickersAvailablePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n<!--   <ion-navbar>\n    <ion-title>Lista de ativos</ion-title>\n  </ion-navbar> -->\n\n</ion-header>\n\n\n<ion-content>   \n    <!-- <div *ngFor="let ticker of data; let i = index;">\n        <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>\n    </div> -->\n    <ion-searchbar\n      [(ngModel)]="myInput"\n      [showCancelButton]="shouldShowCancel"\n      (ionInput)="onInput($event)">\n    </ion-searchbar>\n      <!-- (ionCancel)="onCancel($event)"> -->\n\n    <div *ngFor="let suggestion of suggestions; let i = index;">\n        <ticker-list [tickerInfo]="suggestion" type="button" (click)="tickerSelected($event, suggestion)"></ticker-list>\n    </div>\n    <div *ngIf="not suggestions">\n      Search for a stock symbol\n    </div>\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/,
+            selector: 'page-tickers-available',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/'<!--\n  Generated template for the TickersAvailablePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n<!--   <ion-navbar>\n    <ion-title>Lista de ativos</ion-title>\n  </ion-navbar> -->\n\n</ion-header>\n\n\n<ion-content>   \n    <!-- <div *ngFor="let ticker of data; let i = index;">\n        <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>\n    </div> -->\n    <ion-searchbar\n      [(ngModel)]="myInput"\n      [showCancelButton]="shouldShowCancel"\n      (ionInput)="onInput($event)">\n    </ion-searchbar>\n\n    <!-- <ion-searchbar [(ngModel)]="terms"></ion-searchbar> -->\n      <!-- (ionCancel)="onCancel($event)"> -->\n\n    <div *ngFor="let suggestion of suggestions; let i = index;">\n        <ticker-list [tickerInfo]="suggestion" type="button" (click)="tickerSelected($event, suggestion)"></ticker-list>\n    </div>\n    <div *ngIf="not suggestions">\n      Search for a stock symbol\n    </div>\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */]) === "function" && _c || Object])
     ], TickersAvailablePage);
     return TickersAvailablePage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=tickers-available.js.map
@@ -405,15 +393,15 @@ webpackEmptyAsyncContext.id = 197;
 
 var map = {
 	"../pages/purchase-details/purchase-details.module": [
-		495,
+		496,
 		2
 	],
 	"../pages/ticker-details/ticker-details.module": [
-		496,
+		497,
 		1
 	],
 	"../pages/tickers-available/tickers-available.module": [
-		497,
+		498,
 		0
 	]
 };
@@ -555,13 +543,15 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_ticker_list_ticker_list__ = __webpack_require__(494);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_external_data_external_data__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_firebase_data_firebase_data__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_http__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pipes_search_search__ = __webpack_require__(495);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_http__ = __webpack_require__(240);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -594,7 +584,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_15__components_ticker_list_ticker_list__["a" /* TickerListComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_tickers_available_tickers_available__["a" /* TickersAvailablePage */],
                 __WEBPACK_IMPORTED_MODULE_8__pages_ticker_details_ticker_details__["a" /* TickerDetailsPage */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_purchase_details_purchase_details__["a" /* PurchaseDetailsPage */]
+                __WEBPACK_IMPORTED_MODULE_9__pages_purchase_details_purchase_details__["a" /* PurchaseDetailsPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pipes_search_search__["a" /* SearchPipe */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -605,7 +596,7 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/tickers-available/tickers-available.module#TickersAvailablePageModule', name: 'TickersAvailablePage', segment: 'tickers-available', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_18__angular_http__["b" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_http__["b" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_11_angularfire2__["AngularFireModule"].initializeApp(__WEBPACK_IMPORTED_MODULE_13__settings__["a" /* firebaseConfig */]),
                 __WEBPACK_IMPORTED_MODULE_12_angularfire2_firestore__["AngularFirestoreModule"].enablePersistence()
             ],
@@ -784,6 +775,41 @@ var TickerListComponent = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=ticker-list.js.map
+
+/***/ }),
+
+/***/ 495:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchPipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var SearchPipe = /** @class */ (function () {
+    function SearchPipe() {
+    }
+    SearchPipe.prototype.transform = function (value) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        return value.toLowerCase();
+    };
+    SearchPipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Pipe */])({
+            name: 'search',
+        })
+    ], SearchPipe);
+    return SearchPipe;
+}());
+
+//# sourceMappingURL=search.js.map
 
 /***/ })
 
