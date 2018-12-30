@@ -162,7 +162,7 @@ var PurchaseDetailsPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-purchase-details',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/purchase-details/purchase-details.html"*/'<!--\n  Generated template for the PurchaseDetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Detalhes do investimento</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    {{ticker["symbol"]}}\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/purchase-details/purchase-details.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], PurchaseDetailsPage);
     return PurchaseDetailsPage;
 }());
@@ -277,8 +277,8 @@ var TickerDetailsPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-ticker-details',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/ticker-details/ticker-details.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Detalhes: {{ ticker["1. symbol"] }}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n    <div class="ticker__name">\n        {{ ticker["1. symbol"] }}\n    </div>\n    <div>\n        {{ ticker["8. currency"] }}\n    </div>\n    <div>\n        {{ticker["2. name"]}}\n    </div>\n    <div>\n        ultimo preço: {{lastInfoPrice}}\n    </div>\n    <div>\n        ultima atualização: {{lastInfoUpdate}}\n    </div>\n    <button ion-button (click)="presentPrompt()">\n        adicionar\n    </button>\n    <!-- <div *ngFor="let key of keys; let i = index;">\n        <div *ngIf="i==0">\n            {{key}} : {{data[key]["4. close"]}}\n        </div>\n    </div> -->\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/ticker-details/ticker-details.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_3__providers_firebase_data_firebase_data__["a" /* FirebaseDataProvider */]])
@@ -319,19 +319,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var TickersAvailablePage = /** @class */ (function () {
-    function TickersAvailablePage(navCtrl, navParams, extDataProv) {
+    function TickersAvailablePage(navCtrl, navParams, extDataProv, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.extDataProv = extDataProv;
+        this.loadingCtrl = loadingCtrl;
         this.symbolToSearch = "";
-        // extDataProv.load()
-        // .then(data => {
-        //   this.data = data._body;
-        //   // console.log("antes",this.data);
-        //   this.data = (new Function("return " +this.data+ ";")());
-        //   // console.log("depois",this.data);
-        // });
         this.suggestions = [];
+        this.loading = this.loadingCtrl.create({
+            content: 'Procurando...'
+        });
     }
     TickersAvailablePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad TickersAvailablePage', this.data);
@@ -341,15 +338,20 @@ var TickersAvailablePage = /** @class */ (function () {
     };
     TickersAvailablePage.prototype.onInput = function (event) {
         var _this = this;
-        console.log("evento", event);
-        this.symbolToSearch = event.srcElement.value;
+        if (event.cancelable) {
+            this.symbolToSearch = "";
+        }
+        else {
+            this.symbolToSearch = event.srcElement.value;
+        }
         if (this.symbolToSearch.length != 0) {
+            this.loading.present();
             this.extDataProv.search(this.symbolToSearch)
                 .then(function (data) {
                 console.log(data);
                 _this.suggestions = (new Function("return " + data["_body"] + ";")());
                 _this.suggestions = _this.suggestions.bestMatches;
-                console.log("resposta: ", _this.suggestions);
+                _this.loading.dismiss();
             });
         }
         else {
@@ -359,12 +361,12 @@ var TickersAvailablePage = /** @class */ (function () {
     };
     TickersAvailablePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tickers-available',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/'<!--\n  Generated template for the TickersAvailablePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n<!--   <ion-navbar>\n    <ion-title>Lista de ativos</ion-title>\n  </ion-navbar> -->\n\n</ion-header>\n\n\n<ion-content>   \n    <!-- <div *ngFor="let ticker of data; let i = index;">\n        <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>\n    </div> -->\n    <ion-searchbar\n      [(ngModel)]="myInput"\n      [showCancelButton]="shouldShowCancel"\n      (ionInput)="onInput($event)">\n    </ion-searchbar>\n\n    <!-- <ion-searchbar [(ngModel)]="terms"></ion-searchbar> -->\n      <!-- (ionCancel)="onCancel($event)"> -->\n\n    <div *ngFor="let suggestion of suggestions; let i = index;">\n        <ticker-list [tickerInfo]="suggestion" type="button" (click)="tickerSelected($event, suggestion)"></ticker-list>\n    </div>\n    <div *ngIf="not suggestions">\n      Search for a stock symbol\n    </div>\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/,
+            selector: 'page-tickers-available',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/'<!--\n  Generated template for the TickersAvailablePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n<!--   <ion-navbar>\n    <ion-title>Lista de ativos</ion-title>\n  </ion-navbar> -->\n\n</ion-header>\n\n\n<ion-content>   \n    <!-- <div *ngFor="let ticker of data; let i = index;">\n        <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>\n    </div> -->\n    <ion-searchbar\n      (ionInput)="onInput($event)">\n    </ion-searchbar>\n\n    <!-- <ion-searchbar [(ngModel)]="terms"></ion-searchbar> -->\n      <!-- (ionCancel)="onCancel($event)"> -->\n\n    <div *ngFor="let suggestion of suggestions; let i = index;">\n        <ticker-list [tickerInfo]="suggestion" type="button" (click)="tickerSelected($event, suggestion)"></ticker-list>\n    </div>\n    <div *ngIf="not suggestions">\n      Search for a stock symbol\n    </div>\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/tickers-available/tickers-available.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_external_data_external_data__["a" /* ExternalDataProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _d || Object])
     ], TickersAvailablePage);
     return TickersAvailablePage;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=tickers-available.js.map
@@ -495,7 +497,7 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      InvestMon\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <div *ngFor="let tickerm of tickerMonitored | async">\n    <ticker-info [ticker]="tickerm" type="button" (click)="purchaseSelected(tickerm)"></ticker-info>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_data_firebase_data__["a" /* FirebaseDataProvider */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_firebase_data_firebase_data__["a" /* FirebaseDataProvider */]])
     ], HomePage);
     return HomePage;
 }());
@@ -664,7 +666,7 @@ var MyApp = /** @class */ (function () {
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
     return MyApp;
 }());

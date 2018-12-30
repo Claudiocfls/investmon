@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ExternalDataProvider } from '../../providers/external-data/external-data';
 import { TickerDetailsPage } from '../ticker-details/ticker-details';
-/**
- * Generated class for the TickersAvailablePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,19 +13,17 @@ export class TickersAvailablePage {
   data: any;
   suggestions: any;
   symbolToSearch = "";
+  loading: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public extDataProv: ExternalDataProvider) {
-        // extDataProv.load()
-        // .then(data => {
-        //   this.data = data._body;
-        //   // console.log("antes",this.data);
-        //   this.data = (new Function("return " +this.data+ ";")());
-        //   // console.log("depois",this.data);
-        // });
-        this.suggestions = [];
+    public extDataProv: ExternalDataProvider,
+    public loadingCtrl: LoadingController) {
+      this.suggestions = [];
+      this.loading = this.loadingCtrl.create({
+        content: 'Procurando...'
+      });
   }
 
   ionViewDidLoad() {
@@ -43,15 +35,19 @@ export class TickersAvailablePage {
   }
 
   onInput(event) {
-    console.log("evento", event);
-    this.symbolToSearch = event.srcElement.value;
+    if(event.cancelable){
+      this.symbolToSearch = "";
+    } else {
+      this.symbolToSearch = event.srcElement.value;
+    }
     if(this.symbolToSearch.length != 0){
+      this.loading.present();
       this.extDataProv.search(this.symbolToSearch)
       .then(data => {
         console.log(data);
         this.suggestions = (new Function("return " +data["_body"]+ ";")());
         this.suggestions = this.suggestions.bestMatches;
-        console.log("resposta: ",this.suggestions);
+        this.loading.dismiss();
       })
     } else {
       this.suggestions = [];

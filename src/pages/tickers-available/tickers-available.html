@@ -18,8 +18,6 @@
         <ticker-list [tickerInfo]="ticker" type="button" (click)="tickerSelected($event, ticker)"></ticker-list>
     </div> -->
     <ion-searchbar
-      [(ngModel)]="myInput"
-      [showCancelButton]="shouldShowCancel"
       (ionInput)="onInput($event)">
     </ion-searchbar>
 
