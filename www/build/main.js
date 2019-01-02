@@ -928,7 +928,7 @@ var NewsCardComponent = /** @class */ (function () {
     ], NewsCardComponent.prototype, "news", void 0);
     NewsCardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'news-card',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/components/news-card/news-card.html"*/'<!-- Generated template for the NewsCardComponent component -->\n<div class="news-card__wrapper">\n  {{news["title"]}}\n</div>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/components/news-card/news-card.html"*/
+            selector: 'news-card',template:/*ion-inline-start:"/home/claudio/workspace/investmon/src/components/news-card/news-card.html"*/'<!-- Generated template for the NewsCardComponent component -->\n<div class="news-card__wrapper">\n  <h5 class="news-card__title">{{news["title"]}}</h5>\n</div>\n'/*ion-inline-end:"/home/claudio/workspace/investmon/src/components/news-card/news-card.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], NewsCardComponent);
